@@ -5,7 +5,8 @@
 # This runs before .codecrafters/run.sh
 #
 # Learn more: https://codecrafters.io/program-interface
-
+pip install uv
+uv sync
 set -e # Exit on failure
 
 # (This file is empty since Python programs don't use a compile step)

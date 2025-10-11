@@ -7,8 +7,12 @@ name = "pypi"
 
 [packages]
 sqlparse = "*"
+typer = "*"
+pydantic = "*"
+pydantic-settings = "*"
 
 [dev-packages]
+typer = "*"
 
 [requires]
 python_version = "3"
