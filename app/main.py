@@ -1,5 +1,4 @@
 import typer
-from app.settings import settings
 from app.commands import db_info
 from app.utils.logger import get_logger
 # from dataclasses import dataclass
@@ -8,15 +7,22 @@ from app.utils.logger import get_logger
 logger = get_logger(__name__)
 app = typer.Typer()
 
-
-@app.command(".dbinfo")
-def dbinfo(
-    db_path: str = typer.Option(
-        settings.db_path, help="Path to SQlite DB", show_default=False
+commands = {
+    ".dbinfo": lambda db_path: typer.echo(
+        f"database page size: {db_info(db_path)['page_size']}"
     ),
+}
+
+
+@app.callback(invoke_without_command=True)
+def main(
+    db_path: str = typer.Argument(help="Path to SQLite DB"),
+    command: str = typer.Argument(help="Command"),
 ):
-    result = db_info(db_path)
-    typer.echo(f"database page size: {result['page_size']}")
+    if command in commands:
+        commands[command](db_path)
+    else:
+        typer.echo("Unknown command")
 
 
 if __name__ == "__main__":
