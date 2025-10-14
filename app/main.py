@@ -9,7 +9,9 @@ app = typer.Typer()
 
 commands = {
     ".dbinfo": lambda db_path: typer.echo(
-        f"database page size: {db_info(db_path)['page_size']}"
+        f"database page size: {db_info(db_path)['page_size']}\nnumber of tables: {
+            db_info(db_path)['number_of_tables']
+        }\n"
     ),
 }
 
